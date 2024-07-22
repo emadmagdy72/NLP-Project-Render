@@ -7,11 +7,6 @@ import re
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import warnings
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.preprocessing import LabelEncoder
-
-warnings.filterwarnings('ignore')
 
 # Ensure required NLTK data packages are downloaded
 nltk.download('stopwords')
@@ -76,12 +71,13 @@ model = pickle.load(open('model.pkl', 'rb'))
 tfidf = pickle.load(open('tfidf.pkl', 'rb'))
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-server = app.server 
+server = app.server
+
 app.layout = dbc.Container(
     [
         dbc.Row(
             dbc.Col(
-                html.H1("Arabic Dialect Classifier"),
+                html.H1("معرفة اللهجة العربية", className="text-center text-white mt-4"),
                 width={"size": 6, "offset": 3},
                 className="text-center mt-4"
             )
@@ -91,7 +87,7 @@ app.layout = dbc.Container(
                 dcc.Textarea(
                     id='input-text',
                     style={'width': '100%', 'height': 200},
-                    placeholder='Enter an Arabic sentence here...',
+                    placeholder='اكتب النص هنا...',
                 ),
                 width={"size": 6, "offset": 3},
                 className="mt-4"
@@ -99,19 +95,25 @@ app.layout = dbc.Container(
         ),
         dbc.Row(
             dbc.Col(
-                dbc.Button("Classify", id='submit-button', color='primary', className='mt-3'),
+                dbc.Button("صنف اللهجه", id='submit-button', color='primary', className='mt-3'),
                 width={"size": 6, "offset": 3},
                 className="text-center"
             )
         ),
         dbc.Row(
             dbc.Col(
-                html.H1(id='output-class', className='text-center mt-4'),
+                html.H1(id='output-class', className='text-center mt-4', style={'color': 'white'}),
                 width={"size": 6, "offset": 3}
             )
         )
     ],
-    fluid=True
+    fluid=True,
+    style={
+        'background-image': 'url("/assets/4pg.jpg")',
+        'background-size': 'cover',
+        'background-repeat': 'no-repeat',
+        'height': '100vh',
+    }
 )
 
 @app.callback(
@@ -131,7 +133,15 @@ def classify_text(n_clicks, input_text):
     
     class_name = le.inverse_transform(prediction)[0]
     
-    return f'The dialect is: {class_name}'
+    class_arabic = {
+        'EG': 'مصري',
+        'SUR': 'سوري',
+        'SD': 'سوداني',
+        'LY': 'ليبي',
+        'LB': 'لبناني',
+    }
+    
+    return f'اللهجة: {class_arabic[class_name]}'
 
 def preprocess_text(text):
     text = remove_emojis(text)
