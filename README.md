@@ -4,7 +4,7 @@ This project demonstrates the process of dialect identification using natural la
 
 ## Demo
 
-[[Click here to watch the demo](#) <!-- [Replace with the actual link to the demo](https://renderapp-nlp.onrender.com/) -->](https://renderapp-nlp.onrender.com/)
+[[Click here to watch the demo](#) <!-- (https://renderapp-nlp.onrender.com/) -->]
 
 ## Scripts Overview
 
