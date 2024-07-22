@@ -3,7 +3,7 @@
 This project demonstrates the process of dialect identification using natural language processing techniques. It consists of several Python scripts for data handling, preprocessing, model training, and prediction.
 
 ## Demo 
- [https://renderapp-nlp.onrender.com/]( #Click here to watch the demo) <!-- Replace with the actual link to the demo -->
+ [Click here to watch the demo]( #https://renderapp-nlp.onrender.com/) <!-- Replace with the actual link to the demo -->
 
 
 ## Scripts Overview
